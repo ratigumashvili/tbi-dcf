@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { AuthButtons } from "./auth-buttons";
+
 export function Header() {
     return (
         <header className="flex items-center justify-between max-w-7xl mx-auto p-4 md:p-8 lg:p-10 border-b shadow-sm">
@@ -8,7 +10,10 @@ export function Header() {
                     TBI DCF
                 </Link>
             </h1>
-            <Link href={'/register'}>register</Link>
+            <div className="flex gap-2">
+                <Link href={'/register'}>register</Link>
+                <AuthButtons />
+            </div>
         </header>
     )
 }

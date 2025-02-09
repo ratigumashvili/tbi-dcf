@@ -22,9 +22,8 @@ export const authOptions = {
           throw new Error("User not found");
         }
 
-        // ❌ Block unapproved users
         if (!user.approved) {
-          throw new Error("Your account is pending approval. Please contact admin.");
+          throw new Error("Your account is pending approval.");
         }
 
         const isValidPassword = await bcrypt.compare(credentials.password, user.password);
@@ -32,14 +31,50 @@ export const authOptions = {
           throw new Error("Invalid credentials");
         }
 
-        return user;
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin,
+          approved: user.approved,
+        };
       },
     }),
   ],
+  session: {
+    strategy: "jwt", // ✅ Ensures JWT-based session
+  },
   callbacks: {
-    async session({ session, user }) {
-      session.user = user;
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+        token.isAdmin = user.isAdmin;
+        token.approved = user.approved;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user = {
+        id: token.id,
+        name: token.name,
+        email: token.email,
+        isAdmin: token.isAdmin,
+        approved: token.approved,
+      };
       return session;
+    },
+  },
+  cookies: {
+    sessionToken: {
+      name: "next-auth.session-token",
+      options: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+        sameSite: "lax",
+      },
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
