@@ -3,13 +3,8 @@
 const { revalidatePath } = require("next/cache");
 import bcrypt from "bcrypt";
 
-// import { PrismaClient } from "@prisma/client";
 import { baseUrl } from "@/app/_lib/helpers";
 import { prisma } from "@/app/_utils/db";
-
-// const prisma = new PrismaClient({
-//   log: ["query", "info", "warn", "error"]
-// });
 
 export const registerUser = async (formData) => {
   try {
@@ -22,11 +17,11 @@ export const registerUser = async (formData) => {
     });
 
     if (existingUser) {
-      return { success: false, error: "User with this email already exists", status: 409 };
+      console.log("❌ User already exists:", email);
+      throw new Error("User with this email already exists"); // ✅ Ensures Next.js throws a 500 error
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
     const newUser = await prisma.user.create({
       data: {
         name,
@@ -37,12 +32,19 @@ export const registerUser = async (formData) => {
       },
     });
 
+    console.log("✅ User Registered Successfully:", newUser);
+
     return { success: true, message: "User registered successfully", status: 201 };
 
   } catch (error) {
+    if (error.message.includes("User with this email already exists")) {
+      return { success: false, error: error.message, status: 409 };
+    }
+
     return { success: false, error: "Something went wrong. Please try again.", status: 500 };
   }
 };
+
 
 export const approveUser = async (formData) => {
   const userId = formData.get("userId");

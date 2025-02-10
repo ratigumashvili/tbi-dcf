@@ -41,7 +41,7 @@ export const authOptions = {
     }),
   ],
   session: {
-    strategy: "jwt", // ✅ Ensures JWT-based session
+    strategy: "jwt",
   },
   callbacks: {
     async jwt({ token, user }) {

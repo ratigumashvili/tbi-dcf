@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { getApprovedUsers, getPendingUsers } from "@/app/actions/getUsers";
 import { deleteUser } from "@/app/actions/server-actions";
+import { SubmitButton } from "@/app/_components/forms/submit-button";
 
 export default async function AllUsersPage() {
 
@@ -31,11 +32,7 @@ export default async function AllUsersPage() {
             <div className="col-span-1 border-t border-b border-l border-r p-2">
               <form action={deleteUser} className="flex items-center justify-center">
                 <input type="hidden" value={user.id} name="userId" />
-                <button
-                  className="bg-red-500 text-white px-3 py-1 rounded"
-                >
-                  Delete
-                </button>
+                <SubmitButton title="Delete" classNames={`bg-red-500 text-white px-3 py-1 rounded`} />
               </form>
             </div>
           </div>

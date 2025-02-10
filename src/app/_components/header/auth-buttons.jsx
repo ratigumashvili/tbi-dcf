@@ -4,10 +4,10 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 export function AuthButtons() {
-  const { status, data: session } = useSession();
+  const { status } = useSession();
 
   if (status === "loading") {
-    return <p>Loading...</p>; // ✅ Prevent flickering
+    return <p>Loading...</p>;
   }
 
   return (

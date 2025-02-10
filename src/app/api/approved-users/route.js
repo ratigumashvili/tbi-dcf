@@ -13,7 +13,7 @@ export async function GET() {
         });
         return Response.json(approvedUsers);
     } catch (error) {
-        console.error("❌ Error fetching approved users:", error.message);
+        console.error("Error fetching approved users:", error.message);
         return Response.json({ error: "Failed to fetch approved users", details: error.message }, { status: 500 });
     }
 }

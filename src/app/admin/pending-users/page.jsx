@@ -4,6 +4,7 @@ import Link from "next/link"
 
 import { approveUser, deleteUser } from "@/app/actions/server-actions"
 import { getPendingUsers } from "@/app/actions/getUsers"
+import { SubmitButton } from "@/app/_components/forms/submit-button"
 
 export default async function PendingUsersPage() {
 
@@ -22,19 +23,11 @@ export default async function PendingUsersPage() {
             <div className="flex gap-2">
               <form action={deleteUser}>
                 <input type="hidden" value={user.id} name="userId" />
-                <button
-                  className="bg-red-500 text-white px-3 py-1 rounded"
-                >
-                  Delete
-                </button>
+                <SubmitButton title="Delete" classNames={`bg-red-500 text-white px-3 py-1 rounded`} />
               </form>
               <form action={approveUser}>
                 <input type="hidden" value={user.id} name="userId" />
-                <button
-                  className="bg-green-500 text-white px-3 py-1 rounded"
-                >
-                  Approve
-                </button>
+                <SubmitButton title="Approve" classNames={`bg-green-500 text-white px-3 py-1 rounded`} />
               </form>
             </div>
           </li>

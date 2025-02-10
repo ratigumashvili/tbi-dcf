@@ -2,13 +2,13 @@ import { requireUser } from "@/app/_lib/helpers"
 import { redirect } from "next/navigation"
 
 export default async function DataEntry() {
-    const { data, status } = await requireUser()
+    const { data: user, status } = await requireUser()
 
-    if (!data) return redirect("/sign-in")
+    if (!user) return redirect("/sign-in")
     return (
         <div>
             <pre>
-                {JSON.stringify(data, null, 2)}
+                {JSON.stringify(user, null, 2)}
             </pre>
             <pre>
                 {JSON.stringify(status, null, 2)}
