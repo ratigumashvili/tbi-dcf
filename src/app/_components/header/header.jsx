@@ -11,7 +11,6 @@ export function Header() {
                 </Link>
             </h1>
             <div className="flex gap-2">
-                <Link href={'/register'}>register</Link>
                 <AuthButtons />
             </div>
         </header>

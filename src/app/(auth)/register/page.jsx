@@ -1,6 +1,8 @@
 
 "use client"
 
+import { SubmitButton } from "@/app/_components/forms/submit-button"
+import { UserRegisterForm } from "@/app/_components/forms/user-register-form"
 import { useState, useEffect } from "react"
 
 export default function RegisterPage() {
@@ -45,7 +47,7 @@ export default function RegisterPage() {
     return (
         <section>
             <h2 className="text-xl font-bold mb-4">Register</h2>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-y-4 p-4 border rounded-md max-w-xl" autoComplete="false">
+            {/* <form onSubmit={handleSubmit} className="flex flex-col gap-y-4 p-4 border rounded-md max-w-xl" autoComplete="false">
                 <label htmlFor="name">Name</label>
                 <input
                     type="text"
@@ -73,9 +75,10 @@ export default function RegisterPage() {
                     value={formData.password}
                     onChange={handleChange}
                 />
-                <button className="bg-green-700 text-white w-max px-3 py-2 rounded-md">Submit</button>
+                <SubmitButton />
                 {message && <p>{message}</p>}
-            </form>
+            </form> */}
+            <UserRegisterForm />
         </section>
     )
 }

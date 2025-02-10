@@ -1,31 +1,34 @@
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // ✅ FIXED Import
+// "use client";
 
-// export default async function Home() {
-//   const session = await getServerSession(authOptions);
+// import { useSession } from "next-auth/react";
+
+// export default function HomePage() {
+//   const { data: session, status } = useSession();
 
 //   return (
 //     <div>
 //       <h1>Home Page</h1>
+//       <p>Status: {status}</p>
 //       <pre>{JSON.stringify(session, null, 2)}</pre>
 //     </div>
 //   );
 // }
 
-"use client";
+import { requireUser } from "@/app/_lib/helpers"
 
-import { useSession } from "next-auth/react";
-
-export default function HomePage() {
-  const { data: session, status } = useSession();
-
+export default async function HomePage() {
+  const { data, status } = await requireUser()
   return (
     <div>
-      <h1>Home Page</h1>
-      <p>Status: {status}</p>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
+      <pre>
+        {JSON.stringify(data, null, 2)}
+      </pre>
+      <pre>
+        {JSON.stringify(status, null, 2)}
+      </pre>
     </div>
-  );
+  )
+
 }
 
 
