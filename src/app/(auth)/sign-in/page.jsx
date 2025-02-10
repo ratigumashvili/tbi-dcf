@@ -19,10 +19,10 @@ export default function SignInPage() {
     if (session) {
       router.push("/");
     }
-  }, [session, router]); // ✅ Redirect only when session is available
+  }, [session, router]);
 
   if (status === "loading") {
-    return <p>Loading...</p>; // ✅ Show a loading state before redirect
+    return <p>Loading...</p>;
   }
 
   const handleChange = (e) => {
