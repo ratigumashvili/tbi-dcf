@@ -38,3 +38,16 @@ export const adminNavigation = [
         path: "/admin/all-users"
     }
 ]
+
+export const guestNavigation = [
+    {
+        id: 1,
+        title: "Home",
+        path: "/"
+    },
+    {
+        id: 2,
+        title: "List",
+        path: "/data-list"
+    }
+]

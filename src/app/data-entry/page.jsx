@@ -7,12 +7,7 @@ export default async function DataEntry() {
     if (!user) return redirect("/sign-in")
     return (
         <div>
-            <pre>
-                {JSON.stringify(user, null, 2)}
-            </pre>
-            <pre>
-                {JSON.stringify(status, null, 2)}
-            </pre>
+            data entry
         </div>
     )
 }

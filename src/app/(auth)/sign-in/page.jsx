@@ -12,6 +12,7 @@ export default function SignInPage() {
     password: ""
   })
   const [error, setError] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -31,6 +32,7 @@ export default function SignInPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true)
     setError("");
 
     const res = await signIn("credentials", {
@@ -45,6 +47,7 @@ export default function SignInPage() {
       await revalidatePage('/')
       router.replace("/");
     }
+    setIsSubmitting(false)
   };
 
   return (
@@ -71,7 +74,11 @@ export default function SignInPage() {
           required
         />
 
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded-sm">
+        <button
+          type="submit"
+          className={`bg-blue-500 text-white p-2 rounded-sm ${isSubmitting && "opacity-50 pointer-events-none"}`}
+          disabled={isSubmitting}
+        >
           Sign In
         </button>
       </form>
