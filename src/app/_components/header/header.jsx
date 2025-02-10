@@ -1,8 +1,15 @@
 import Link from "next/link";
 
-import { AuthButtons } from "./auth-buttons";
+import { AuthButtons } from "@/app/_components/header/auth-buttons";
+import { TopNavigation } from "@/app/_components/header/top-navigation";
+import { requireUser } from "@/app/_lib/helpers";
+import { usersNavigation, adminNavigation } from "@/app/_lib/constants";
 
-export function Header() {
+export async function Header() {
+
+    const session = await requireUser()
+    const isAdmin = session && session?.data?.user?.isAdmin
+
     return (
         <header className="flex items-center justify-between max-w-7xl mx-auto p-4 md:p-8 lg:p-10 border-b shadow-sm">
             <h1 className="text-2xl font-bold">
@@ -10,7 +17,11 @@ export function Header() {
                     TBI DCF
                 </Link>
             </h1>
-            <div className="flex gap-2">
+            <pre>
+            {JSON.stringify(session?.data?.user?.isAdmin, null, 2)}
+        </pre>
+            <div className="flex items-center gap-4">
+                <TopNavigation data={isAdmin ? adminNavigation : usersNavigation} />
                 <AuthButtons />
             </div>
         </header>
