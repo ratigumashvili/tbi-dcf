@@ -17,7 +17,7 @@ export async function Header() {
                     TBI DCF
                 </Link>
             </h1>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
                 <TopNavigation data={isAdmin ? adminNavigation : usersNavigation} />
                 <AuthButtons />
             </div>
