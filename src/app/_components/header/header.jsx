@@ -17,9 +17,6 @@ export async function Header() {
                     TBI DCF
                 </Link>
             </h1>
-            <pre>
-            {JSON.stringify(session?.data?.user?.isAdmin, null, 2)}
-        </pre>
             <div className="flex items-center gap-4">
                 <TopNavigation data={isAdmin ? adminNavigation : usersNavigation} />
                 <AuthButtons />

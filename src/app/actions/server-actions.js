@@ -61,3 +61,7 @@ export const approveUser = async (formData) => {
       throw new Error("Something went wrong while deleting the user");
     }
   };
+
+export async function revalidatePage(path) {
+    revalidatePath(path);
+}

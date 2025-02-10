@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
+import { revalidatePage } from "@/app/actions/server-actions";
 
 export default function SignInPage() {
   const [formData, setFormData] = useState({
@@ -41,6 +42,7 @@ export default function SignInPage() {
     if (res?.error) {
       setError(res.error);
     } else {
+      await revalidatePage('/')
       router.replace("/");
     }
   };

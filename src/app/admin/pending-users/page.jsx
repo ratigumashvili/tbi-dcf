@@ -3,8 +3,11 @@
 import Link from "next/link"
 
 import { approveUser, deleteUser } from "@/app/actions/server-actions"
+import { getPendingUsers } from "@/app/actions/getUsers"
 
 export default async function PendingUsersPage() {
+
+  const pendingUsers = await getPendingUsers()
 
   return (
     <>
@@ -13,7 +16,7 @@ export default async function PendingUsersPage() {
         <Link href={'/admin/all-users'}>All users</Link>
       </div>
       <ul>
-        {data && data.length !== 0 && data?.map((user) => (
+        {pendingUsers && pendingUsers.length !== 0 && pendingUsers?.map((user) => (
           <li key={user.id} className="flex justify-between p-2 border-b">
             <span>{user.name} ({user.email})</span>
             <div className="flex gap-2">
